@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "todo")
+@Entity(tableName = "todos")
 public class Task {
 
     @PrimaryKey(autoGenerate = true)
