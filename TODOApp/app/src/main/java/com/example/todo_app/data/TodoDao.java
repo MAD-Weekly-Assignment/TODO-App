@@ -18,6 +18,8 @@ public interface TodoDao {
     @Query("select * from todos order by priority")
     List<Task> getAllTasks();
 
+    @Delete
+    void delete(Task task);
 
     @Update
     void update(Task task);
@@ -25,7 +27,8 @@ public interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Task task);
 
-
+    @Query("delete from todos")
+    void deleteAll();
 
 
 }
