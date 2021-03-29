@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Task.class}, version = 1, exportSchema = false)
+@TypeConverters(DateConverter.class)
 public  abstract class AppDatabase extends RoomDatabase {
 
     public  static AppDatabase INSTANCE;
