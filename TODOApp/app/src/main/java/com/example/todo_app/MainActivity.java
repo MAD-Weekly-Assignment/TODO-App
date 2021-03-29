@@ -5,13 +5,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 
-import com.example.todo_app.data.AppDatabase;
 import com.example.todo_app.data.Repository;
 import com.example.todo_app.data.Task;
-import com.example.todo_app.data.TodoDao;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -51,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-        @Override
-        protected void onStart() {
-            super.onStart();
-            taskList = repository.getAllTasks();
-            adapter.setDate(taskList);
 
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        taskList = repository.getAllTasks();
+        adapter.setDate(taskList);
+
     }
 }
