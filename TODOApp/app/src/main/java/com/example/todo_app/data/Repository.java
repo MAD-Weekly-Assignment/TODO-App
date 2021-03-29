@@ -34,4 +34,7 @@ public class Repository {
         dao.update(task);
     }
 
+    public void addTask(Task task){
+        dao.insert(task);
+    }
 }
