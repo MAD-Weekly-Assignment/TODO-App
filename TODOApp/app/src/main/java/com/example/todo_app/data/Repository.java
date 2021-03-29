@@ -25,4 +25,8 @@ public class Repository {
     public List<Task> getAllTasks() {
         return dao.getAllTasks();
     }
+
+    public void deleteAll(){
+        dao.deleteAll();
+    }
 }
