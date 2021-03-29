@@ -29,4 +29,9 @@ public class Repository {
     public void deleteAll(){
         dao.deleteAll();
     }
+
+    public void update(Task task){
+        dao.update(task);
+    }
+
 }
