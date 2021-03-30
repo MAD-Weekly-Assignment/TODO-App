@@ -58,12 +58,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        taskList = viewModel.getAllTasks();
-//        adapter.setDate(taskList);
-//
-//    }
+
 
 }
