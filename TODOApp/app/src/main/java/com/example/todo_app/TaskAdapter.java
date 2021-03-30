@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo_app.data.Task;
 
-
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
@@ -21,7 +20,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public TaskAdapter() {
     }
 
-    public void setDate(List<Task> data){
+    public void setData(List<Task> data){
         taskList = data;
         notifyDataSetChanged();
     }

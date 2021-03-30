@@ -2,6 +2,8 @@ package com.example.todo_app.data;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 public class Repository {
@@ -15,26 +17,51 @@ public class Repository {
         dao = db.todoDao();
     }
 
-    public static Repository getRepository(Application application) {
-        if (INSTANCE == null) {
+    public static Repository getRepository(Application application){
+        if(INSTANCE == null){
             INSTANCE = new Repository(application);
         }
         return INSTANCE;
     }
 
-    public List<Task> getAllTasks() {
+    public LiveData<List<Task>> getAllTasks()
+    {
         return dao.getAllTasks();
     }
 
     public void deleteAll(){
-        dao.deleteAll();
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dao.deleteAll();
+            }
+        });
+
     }
 
     public void update(Task task){
-        dao.update(task);
+
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dao.update(task);
+            }
+        });
+
+
     }
 
     public void addTask(Task task){
-        dao.insert(task);
+
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dao.insert(task);
+            }
+        });
+
+
     }
+
+
 }
