@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/task_list"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_add_circle_24" />
 
 
-</LinearLayout>
+
+<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		tools:context="com.example.todo_app.MainActivity">
+
+	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+		<include layout="@layout/item_task"/>
+	</LinearLayout>
+
+	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/delAll"
+	        android:text="Delete All"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:paddingStart="20dp"
+	        android:padding="16dp"/>
+
+
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|end"
+			android:layout_margin="16dp"
+			app:srcCompat="@drawable/ic_baseline_add_circle_24"
+			tools:ignore="ContentDescription"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+	/>
+
+
+</RelativeLayout>

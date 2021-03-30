@@ -1,3 +1,5 @@
+
+
 package com.example.todo_app.data;
 
 
@@ -7,86 +9,36 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
 
-@Entity(tableName = "todos")
+
+@Entity(tableName = "word_table")
 public class Task {
 
     @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @NonNull
-    private Long id;
-    private String title;
-    private String description;
-    @ColumnInfo(name = "created_date")
-    private Date createdDate;
-    @ColumnInfo(name = "updated_date")
-    private Date updatedDate;
-    private int priority;
+    @ColumnInfo(name = "word")
+    private String mWord;
+
+    public Task(@NonNull String word) {
+        this.mWord = word;
+    }
 
 
     @Ignore
-    public Task(Long id, String title, String description, Date createdDate, Date updatedDate, int priority) {
+    public Task(int id, @NonNull String word) {
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.priority = priority;
+        this.mWord = word;
     }
 
-    public Task(String title, String description, Date createdDate, Date updatedDate, int priority) {
-        this.title = title;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.priority = priority;
+    public String getWord() {
+        return this.mWord;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public int getId() {return id;}
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 }

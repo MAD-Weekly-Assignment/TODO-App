@@ -1,65 +1,88 @@
+
+
 package com.example.todo_app;
 
+
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.todo_app.data.Task;
 
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
 
-    private List<Task> taskList;
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.WordViewHolder> {
 
-    public TaskAdapter() {
+    private final LayoutInflater mInflater;
+    private List<Task> mTasks;
+	private static ClickListener clickListener;
+
+    TaskAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
     }
 
-    public void setData(List<Task> data){
-        taskList = data;
+    @Override
+    public WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
+        return new WordViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(WordViewHolder holder, int position) {
+        if (mTasks != null) {
+            Task current = mTasks.get(position);
+            holder.wordItemView.setText(current.getWord());
+        } else {
+
+            holder.wordItemView.setText("");
+        }
+    }
+
+
+    void setWords(List<Task> tasks) {
+        mTasks = tasks;
         notifyDataSetChanged();
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater, parent);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Task task = taskList.get(position);
-        holder.onBind(task);
-    }
 
     @Override
     public int getItemCount() {
-        if(taskList != null)
-            return taskList.size();
-        return 0;
+        if (mTasks != null)
+            return mTasks.size();
+        else return 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView titleTextView;
-        private  TextView descTextView;
+    public Task getWordAtPosition(int position) {
+        return mTasks.get(position);
+    }
 
-        public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.item_task, parent, false));
-            titleTextView = itemView.findViewById(R.id.title_tv);
-            descTextView = itemView.findViewById(R.id.descripttion_tv);
-        }
+    class WordViewHolder extends RecyclerView.ViewHolder {
+        private final TextView wordItemView;
 
-        public void onBind(Task task) {
-            titleTextView.setText(task.getTitle());
-            descTextView.setText(task.getDescription());
-
+        private WordViewHolder(View itemView) {
+            super(itemView);
+            wordItemView = itemView.findViewById(R.id.textView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onItemClick(view, getAdapterPosition());
+                }
+            });
         }
     }
+
+    public void setOnItemClickListener(ClickListener clickListener) {
+        TaskAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(View v, int position);
+    }
+
 }

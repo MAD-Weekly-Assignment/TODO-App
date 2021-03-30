@@ -1,69 +1,73 @@
+
+
 package com.example.todo_app.data;
 
-import android.content.Context;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-@Database(entities = {Task.class}, version = 1, exportSchema = false)
-@TypeConverters(DateConverter.class)
-public  abstract class AppDatabase extends RoomDatabase {
+@Database(entities = {Task.class}, version = 2, exportSchema = false)
+public abstract class AppDatabase extends RoomDatabase {
 
-    public  static AppDatabase INSTANCE;
+    public abstract TodoDao wordDao();
 
-    public abstract TodoDao todoDao();
+    private static AppDatabase INSTANCE;
 
-    private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
-
-    public static AppDatabase getDatabase(Context context){
-        if(INSTANCE == null){
+    public static AppDatabase getDatabase(final Context context) {
+        if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
+                    // Create database here.
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "todo.db")
-                            //.allowMainThreadQueries()
-                            .addCallback(CALLBACK)
+
+                            .fallbackToDestructiveMigration()
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
         }
-
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback CALLBACK = new RoomDatabase.Callback(){
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
+    private static RoomDatabase.Callback sRoomDatabaseCallback =
+            new RoomDatabase.Callback(){
 
-            AppDatabase.databaseWriteExecutor.execute(new Runnable() {
                 @Override
-                public void run() {
-                    TodoDao dao = INSTANCE.todoDao();
-                    dao.deleteAll();
-                    Task task = new Task("title", "description", new Date(), new Date(), 1);
-                    dao.insert(task);
-                    task = new Task("title", "description", new Date(), new Date(), 1);
-                    dao.insert(task);
+                public void onOpen (@NonNull SupportSQLiteDatabase db){
+                    super.onOpen(db);
+                    new PopulateDbAsync(INSTANCE).execute();
                 }
-            });
+            };
 
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final TodoDao mDao;
+
+        private static String [] words = {"dolphin", "crocodile", "cobra", "elephant", "goldfish",
+                "tiger", "snake"};
+
+        PopulateDbAsync(AppDatabase db) {
+            mDao = db.wordDao();
         }
 
         @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
+        protected Void doInBackground(final Void... params) {
+
+            if (mDao.getAnyWord().length < 1) {
+                for (int i = 0; i <= words.length - 1; i++) {
+                    Task task = new Task(words[i]);
+                    mDao.insert(task);
+                }
+            }
+            return null;
         }
-    };
+    }
 }
+
