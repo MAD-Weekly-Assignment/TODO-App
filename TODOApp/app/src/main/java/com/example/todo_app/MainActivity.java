@@ -1,12 +1,11 @@
-
 package com.example.todo_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -16,15 +15,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.todo_app.data.Repository;
 import com.example.todo_app.data.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
-
-import static java.lang.Thread.sleep;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,17 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_DATA_UPDATE_WORD = "extra_word_to_be_updated";
     public static final String EXTRA_DATA_ID = "extra_data_id";
-
+    static final String STATE_FRAGMENT = "state_of_fragment";
     private MainViewModel mMainViewModel;
     private boolean isFragmentDisplayed = false;
-    static final String STATE_FRAGMENT = "state_of_fragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         if (savedInstanceState != null) {
             isFragmentDisplayed = savedInstanceState.getBoolean(STATE_FRAGMENT);
         }
+
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new Repository(getApplication()).deleteAll();
-
+                displayFragment();
             }
         });
 
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeFragment();
                 Intent intent = new Intent(MainActivity.this, com.example.todo_app.AddTaskActivity.class);
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
@@ -93,19 +93,16 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-
-
                     @Override
-                    // When the use swipes a word,
-                    // delete that word from the database.
+
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
                         Task myTask = adapter.getWordAtPosition(position);
-                        // Delete the word.
+
                         mMainViewModel.deleteWord(myTask);
                     }
                 });
-        // Attach the item touch helper to the recycler view.
+
         helper.attachToRecyclerView(recyclerView);
 
 
@@ -119,22 +116,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * When the user enters a new word in the NewWordActivity,
-     * that activity returns the result to this activity.
-     * If the user entered a new word, save it in the database.
-     *
-     * @param requestCode ID for the request
-     * @param resultCode  indicates success or failure
-     * @param data        The Intent sent back from the NewWordActivity,
-     *                    which includes the word that the user entered
-     */
+
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Task task = new Task(data.getStringExtra(com.example.todo_app.AddTaskActivity.EXTRA_REPLY));
-            // Save the data.
+
             mMainViewModel.insert(task);
         } else if (requestCode == UPDATE_WORD_ACTIVITY_REQUEST_CODE
                 && resultCode == RESULT_OK) {
@@ -158,5 +147,45 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, UPDATE_WORD_ACTIVITY_REQUEST_CODE);
     }
 
+
+    public void displayFragment() {
+
+        DeleteFragment simpleFragment = DeleteFragment.newInstance();
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+        fragmentTransaction.add(R.id.fragment_container, simpleFragment).addToBackStack(null).commit();
+
+
+        isFragmentDisplayed = true;
+
+    }
+
+    public void closeFragment() {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+
+        DeleteFragment simpleFragment = (DeleteFragment) fragmentManager.findFragmentById(R.id.fragment_container);
+        if (simpleFragment != null) {
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.remove(simpleFragment).commit();
+        }
+
+
+        isFragmentDisplayed = false;
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putBoolean(STATE_FRAGMENT, isFragmentDisplayed);
+    }
 
 }

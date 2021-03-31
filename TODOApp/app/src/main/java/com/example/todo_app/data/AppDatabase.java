@@ -50,8 +50,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
         private final TodoDao mDao;
 
-        private static String [] words = {"dolphin", "crocodile", "cobra", "elephant", "goldfish",
-                "tiger", "snake"};
+        private static String [] words = {"Meal", "Class", "Job", "Lunch", "Dinner",
+                "Study", "Night"};
 
         PopulateDbAsync(AppDatabase db) {
             mDao = db.wordDao();
