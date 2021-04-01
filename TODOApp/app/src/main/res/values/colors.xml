@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_sky">#63C7F4</color>
     <color name="color_purple">#C757F1</color>
+    <color name="color_gold">#F6D73E</color>
+
 
 </resources>
