@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_sky">#63C7F4</color>
+    <color name="color_purple">#C757F1</color>
 
 </resources>
