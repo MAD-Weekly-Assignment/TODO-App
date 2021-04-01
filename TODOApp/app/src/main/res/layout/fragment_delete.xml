@@ -18,6 +18,9 @@
             android:padding="4dp"
             android:background="@color/color_sky"
             android:text="@string/del_item"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColorHighlight="@color/color_sky"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 

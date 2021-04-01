@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,12 +9,16 @@
     android:padding="24dp">
 
     <EditText
-            android:id="@+id/edit_word"
-            android:inputType="textAutoComplete"
-        android:layout_height="wrap_content" android:layout_width="match_parent"
-        android:hint="Insert Items"/>
+        android:id="@+id/edit_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/item_insert"
+        android:inputType="textAutoComplete" />
 
     <Button
-            android:id="@+id/button_save" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="save"
-        android:layout_gravity="center"/>
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/item_save" />
 </LinearLayout>

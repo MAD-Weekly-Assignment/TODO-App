@@ -5,6 +5,11 @@
     <string name="del_item">Deleted Successfully!!</string>
     <string name="close">close</string>
     <string name="open">open</string>
+    <string name="item_insert">Insert Items</string>
+    <string name="item_save">Save</string>
+    <string name="item_delete_all">Remove All</string>
+
+
 
 
 
