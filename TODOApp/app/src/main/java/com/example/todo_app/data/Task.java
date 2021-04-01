@@ -1,5 +1,3 @@
-
-
 package com.example.todo_app.data;
 
 
@@ -8,7 +6,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
 
 
 @Entity(tableName = "word_table")
@@ -36,7 +33,9 @@ public class Task {
         return this.mWord;
     }
 
-    public int getId() {return id;}
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;

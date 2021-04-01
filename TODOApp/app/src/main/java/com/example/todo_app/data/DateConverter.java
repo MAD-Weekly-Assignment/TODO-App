@@ -1,7 +1,6 @@
 package com.example.todo_app.data;
 
 import androidx.room.TypeConverter;
-
 import java.util.Date;
 
 public class DateConverter {

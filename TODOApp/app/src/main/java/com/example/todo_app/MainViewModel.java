@@ -1,4 +1,3 @@
-
 package com.example.todo_app;
 
 import android.app.Application;
@@ -6,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.example.todo_app.data.Repository;
 import com.example.todo_app.data.Task;
-
 import java.util.List;
 
 

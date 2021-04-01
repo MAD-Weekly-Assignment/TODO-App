@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/color_ash"
+    android:orientation="vertical"
     tools:context="com.example.todo_app.MainActivity">
 
     <LinearLayout
@@ -29,10 +29,10 @@
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
         android:backgroundTint="@color/color_sky"
-        android:textColor="@color/black"
         android:padding="16dp"
         android:text="@string/item_delete_all"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/black" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

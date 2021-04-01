@@ -1,7 +1,4 @@
-
-
 package com.example.todo_app;
-
 
 
 import android.content.Context;
@@ -9,18 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.todo_app.data.Task;
 
 import java.util.List;
 
 
-
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.WordViewHolder> {
 
+    private static ClickListener clickListener;
     private final LayoutInflater mInflater;
     private List<Task> mTasks;
-	private static ClickListener clickListener;
 
     TaskAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -62,6 +60,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.WordViewHolder
         return mTasks.get(position);
     }
 
+    public void setOnItemClickListener(ClickListener clickListener) {
+        TaskAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(View v, int position);
+    }
+
     class WordViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
 
@@ -75,14 +81,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.WordViewHolder
                 }
             });
         }
-    }
-
-    public void setOnItemClickListener(ClickListener clickListener) {
-        TaskAdapter.clickListener = clickListener;
-    }
-
-    public interface ClickListener {
-        void onItemClick(View v, int position);
     }
 
 }

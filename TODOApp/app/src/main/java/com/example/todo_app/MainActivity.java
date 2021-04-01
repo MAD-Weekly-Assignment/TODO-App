@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -15,11 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.todo_app.data.Repository;
 import com.example.todo_app.data.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.List;
 
 
@@ -43,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             isFragmentDisplayed = savedInstanceState.getBoolean(STATE_FRAGMENT);
         }
-
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -115,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

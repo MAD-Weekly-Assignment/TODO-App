@@ -1,5 +1,3 @@
-
-
 package com.example.todo_app.data;
 
 
@@ -15,9 +13,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {Task.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract TodoDao wordDao();
-
     private static AppDatabase INSTANCE;
+    private static RoomDatabase.Callback sRoomDatabaseCallback =
+            new RoomDatabase.Callback() {
+
+                @Override
+                public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                    super.onOpen(db);
+                    new PopulateDbAsync(INSTANCE).execute();
+                }
+            };
 
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
@@ -36,22 +41,13 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback =
-            new RoomDatabase.Callback(){
-
-                @Override
-                public void onOpen (@NonNull SupportSQLiteDatabase db){
-                    super.onOpen(db);
-                    new PopulateDbAsync(INSTANCE).execute();
-                }
-            };
+    public abstract TodoDao wordDao();
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-        private final TodoDao mDao;
-
-        private static String [] words = {"Meal", "Class", "Job", "Lunch", "Dinner",
+        private static String[] words = {"Meal", "Class", "Job", "Lunch", "Dinner",
                 "Study", "Night"};
+        private final TodoDao mDao;
 
         PopulateDbAsync(AppDatabase db) {
             mDao = db.wordDao();

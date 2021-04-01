@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     android:backgroundTint="@color/color_ash"
+    android:orientation="vertical"
     android:padding="24dp">
 
     <EditText
         android:id="@+id/edit_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-android:layout_marginTop="40dp"
+        android:layout_marginTop="40dp"
         android:hint="@string/item_insert"
         android:inputType="textAutoComplete" />
 
@@ -21,9 +21,9 @@ android:layout_marginTop="40dp"
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_gravity="center"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/color_purple"
-        android:textColor="@color/white"
-        android:text="@string/item_save" />
+        android:text="@string/item_save"
+        android:textColor="@color/white" />
 </LinearLayout>
