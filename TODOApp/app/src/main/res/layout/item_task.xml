@@ -9,12 +9,14 @@
     android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
+    android:backgroundTint="@color/color_ash"
     tools:showIn="@layout/activity_main">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/color_ash"
         android:layout_margin="15dp"
         tools:ignore="MissingConstraints"
         tools:listitem="@layout/recyclerview_item" />
