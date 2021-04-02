@@ -26,7 +26,7 @@
 - Application ClearedList-Fragment Index (Landscape)
 <img src="Screenshot/IndexLand-Fragment.png"/>
 
-### Hello Toast Application Workings (CRUD Functions)
+### TODO-App Application Workings (CRUD Functions)
 
 - Add Function (Vertical)
 <img src="Screenshot/AddGif.gif" width=300/>
